@@ -288,7 +288,7 @@ QUESTIONS = [
 
 # ─── Page config ──────────────────────────────────────────────────────────────
 st.set_page_config(
-    page_title="🌿 Prakriti Determine",
+    page_title="Prakriti Determine",
     page_icon="🌿",
     layout="centered",
     initial_sidebar_state="collapsed",
@@ -451,9 +451,9 @@ def chatbot_respond(question, prakriti, info, diet):
     elif any(w in q for w in ["vata", "pitta", "kapha", "dosha", "three"]):
         return (
             "The three Doshas in Ayurveda are:\n\n"
-            "🌬️ **Vata** — Air & Space — governs movement and communication\n"
-            "🔥 **Pitta** — Fire & Water — governs transformation and metabolism\n"
-            "🌊 **Kapha** — Earth & Water — governs structure and lubrication\n\n"
+            "🌬️ Vata — Air & Space — governs movement and communication \n\n"
+            "🔥 Pitta — Fire & Water — governs transformation and metabolism\n\n"
+            "🌊 Kapha— Earth & Water — governs structure and lubrication\n\n"
             f"Your dominant dosha is **{prakriti}** {info['emoji']}"
         )
     elif any(w in q for w in ["balance", "imbalance", "fix", "heal", "help"]):
@@ -471,14 +471,14 @@ def chatbot_respond(question, prakriti, info, diet):
             "Pitta": "Moderate, cooling exercises — swimming, cycling, hiking in cool weather. Avoid overheating and excessive competition.",
             "Kapha": "Vigorous, stimulating exercises — running, aerobics, weight training, HIIT. Kapha benefits most from intense activity!",
         }
-        return f"**Exercise for {prakriti} Prakriti:**\n\n🏃 {ex[prakriti]}"
+        return f"Exercise for {prakriti} Prakriti:\n\n🏃 {ex[prakriti]}"
     elif any(w in q for w in ["sleep", "rest", "bedtime", "wake"]):
         sl = {
             "Vata": "Aim for 7–8 hours. Go to bed by 10 PM. Create a calming bedtime routine — warm milk, light reading.",
             "Pitta": "Aim for 7–8 hours. Avoid working late. Cool the bedroom and avoid stimulating content before bed.",
             "Kapha": "Limit to 7–8 hours maximum. Avoid oversleeping — it increases Kapha. Wake up by 6 AM ideally.",
         }
-        return f"**Sleep tips for {prakriti}:**\n\n😴 {sl[prakriti]}"
+        return f"Sleep tips for {prakriti}:\n\n😴 {sl[prakriti]}"
     else:
         return (
             f"Great question! As a **{prakriti}** type, everything in Ayurveda is personalised to your constitution.\n\n"

@@ -415,6 +415,83 @@ def predict_prakriti(answers):
     pred_idx = np.argmax(proba)
     return PRAKRITI_LABELS[pred_idx], proba
 
+
+# ─── Simple rule-based chatbot ────────────────────────────────────────────────
+def chatbot_respond(question, prakriti, info, diet):
+    q = question.lower()
+
+    if any(w in q for w in ["what is", "explain", "tell me", "about", "meaning", "prakriti"]):
+        return (
+            f"**{prakriti} Prakriti** is governed by the {info['element']} elements. 🌿\n\n"
+            f"{info['description']}\n\n"
+            f"**Key traits:** {info['traits']}"
+        )
+    elif any(w in q for w in ["eat", "food", "diet", "meal", "nutrition"]):
+        favour_str = "\n".join(diet["favor"][:5])
+        return (
+            f"For **{prakriti}** types, the key principle is: *{diet['principle']}*\n\n"
+            f"**Top foods to favour:**\n{favour_str}\n\n"
+            f"Would you like tips on what to avoid or meal timing?"
+        )
+    elif any(w in q for w in ["avoid", "don't", "bad", "harmful", "wrong"]):
+        avoid_str = "\n".join(diet["avoid"])
+        return (
+            f"**{prakriti}** types should try to avoid:\n\n{avoid_str}\n\n"
+            f"These can aggravate your dosha and lead to imbalance. 🙏"
+        )
+    elif any(w in q for w in ["tip", "advice", "suggestion", "meal", "time", "when"]):
+        tips_str = "\n".join(diet["meal_tips"])
+        return f"**Meal tips for {prakriti}:**\n\n{tips_str}"
+    elif any(w in q for w in ["herb", "supplement", "plant", "medicine"]):
+        return (
+            f"Recommended herbs for **{prakriti}** Prakriti:\n\n"
+            f"🌿 **{diet['herbs']}**\n\n"
+            f"These herbs help balance your dominant dosha. Always consult an Ayurvedic practitioner before starting any supplement."
+        )
+    elif any(w in q for w in ["vata", "pitta", "kapha", "dosha", "three"]):
+        return (
+            "The three Doshas in Ayurveda are:\n\n"
+            "🌬️ **Vata** — Air & Space — governs movement and communication\n"
+            "🔥 **Pitta** — Fire & Water — governs transformation and metabolism\n"
+            "🌊 **Kapha** — Earth & Water — governs structure and lubrication\n\n"
+            f"Your dominant dosha is **{prakriti}** {info['emoji']}"
+        )
+    elif any(w in q for w in ["balance", "imbalance", "fix", "heal", "help"]):
+        return (
+            f"To keep your **{prakriti}** dosha in balance:\n\n"
+            f"• Follow the diet recommendations above\n"
+            f"• Maintain regular daily routines (*Dinacharya*)\n"
+            f"• Get adequate sleep and avoid stress\n"
+            f"• Use the herbs: {diet['herbs']}\n"
+            f"• Consider consulting an Ayurvedic practitioner for a personalised plan 🙏"
+        )
+    elif any(w in q for w in ["exercise", "workout", "yoga", "activity"]):
+        ex = {
+            "Vata": "Gentle, grounding exercises — yoga, walking, tai chi, swimming. Avoid exhausting high-intensity workouts.",
+            "Pitta": "Moderate, cooling exercises — swimming, cycling, hiking in cool weather. Avoid overheating and excessive competition.",
+            "Kapha": "Vigorous, stimulating exercises — running, aerobics, weight training, HIIT. Kapha benefits most from intense activity!",
+        }
+        return f"**Exercise for {prakriti} Prakriti:**\n\n🏃 {ex[prakriti]}"
+    elif any(w in q for w in ["sleep", "rest", "bedtime", "wake"]):
+        sl = {
+            "Vata": "Aim for 7–8 hours. Go to bed by 10 PM. Create a calming bedtime routine — warm milk, light reading.",
+            "Pitta": "Aim for 7–8 hours. Avoid working late. Cool the bedroom and avoid stimulating content before bed.",
+            "Kapha": "Limit to 7–8 hours maximum. Avoid oversleeping — it increases Kapha. Wake up by 6 AM ideally.",
+        }
+        return f"**Sleep tips for {prakriti}:**\n\n😴 {sl[prakriti]}"
+    else:
+        return (
+            f"Great question! As a **{prakriti}** type, everything in Ayurveda is personalised to your constitution.\n\n"
+            f"You can ask me about:\n"
+            f"• 🥗 Diet and foods to eat or avoid\n"
+            f"• 🌿 Herbs and supplements\n"
+            f"• 🏃 Best exercises for your type\n"
+            f"• 😴 Sleep recommendations\n"
+            f"• ⚖️ Balancing your dosha\n\n"
+            f"What would you like to know? 🙏"
+        )
+
+
 # ─── Header ───────────────────────────────────────────────────────────────────
 st.markdown("""
 <div class="header-banner">
@@ -557,23 +634,17 @@ elif st.session_state.phase == "result":
 
     with col_a:
         st.markdown("### ✅ Foods to Favour")
-        st.markdown('<div class="section-card">', unsafe_allow_html=True)
-        for item in diet["favor"]:
-            st.markdown(f'<div class="food-item">{item}</div>', unsafe_allow_html=True)
-        st.markdown('</div>', unsafe_allow_html=True)
+        favour_html = "".join(f'<div class="food-item">{item}</div>' for item in diet["favor"])
+        st.markdown(f'<div class="section-card">{favour_html}</div>', unsafe_allow_html=True)
 
     with col_b:
         st.markdown("### ❌ Foods to Avoid")
-        st.markdown('<div class="section-card">', unsafe_allow_html=True)
-        for item in diet["avoid"]:
-            st.markdown(f'<div class="food-item">{item}</div>', unsafe_allow_html=True)
-        st.markdown('</div>', unsafe_allow_html=True)
+        avoid_html = "".join(f'<div class="food-item">{item}</div>' for item in diet["avoid"])
+        st.markdown(f'<div class="section-card">{avoid_html}</div>', unsafe_allow_html=True)
 
     st.markdown("### 💡 Meal Tips")
-    st.markdown('<div class="section-card">', unsafe_allow_html=True)
-    for tip in diet["meal_tips"]:
-        st.markdown(f'<div class="food-item">{tip}</div>', unsafe_allow_html=True)
-    st.markdown('</div>', unsafe_allow_html=True)
+    tips_html = "".join(f'<div class="food-item">{tip}</div>' for tip in diet["meal_tips"])
+    st.markdown(f'<div class="section-card">{tips_html}</div>', unsafe_allow_html=True)
 
     st.markdown("### 🌿 Recommended Herbs & Supplements")
     st.markdown(f"""
@@ -618,77 +689,3 @@ elif st.session_state.phase == "result":
             st.rerun()
 
 
-# ─── Simple rule-based chatbot ────────────────────────────────────────────────
-def chatbot_respond(question, prakriti, info, diet):
-    q = question.lower()
-
-    if any(w in q for w in ["what is", "explain", "tell me", "about", "meaning", "prakriti"]):
-        return (
-            f"**{prakriti} Prakriti** is governed by the {info['element']} elements. 🌿\n\n"
-            f"{info['description']}\n\n"
-            f"**Key traits:** {info['traits']}"
-        )
-    elif any(w in q for w in ["eat", "food", "diet", "meal", "nutrition"]):
-        favour_str = "\n".join(diet["favor"][:5])
-        return (
-            f"For **{prakriti}** types, the key principle is: *{diet['principle']}*\n\n"
-            f"**Top foods to favour:**\n{favour_str}\n\n"
-            f"Would you like tips on what to avoid or meal timing?"
-        )
-    elif any(w in q for w in ["avoid", "don't", "bad", "harmful", "wrong"]):
-        avoid_str = "\n".join(diet["avoid"])
-        return (
-            f"**{prakriti}** types should try to avoid:\n\n{avoid_str}\n\n"
-            f"These can aggravate your dosha and lead to imbalance. 🙏"
-        )
-    elif any(w in q for w in ["tip", "advice", "suggestion", "meal", "time", "when"]):
-        tips_str = "\n".join(diet["meal_tips"])
-        return f"**Meal tips for {prakriti}:**\n\n{tips_str}"
-    elif any(w in q for w in ["herb", "supplement", "plant", "medicine"]):
-        return (
-            f"Recommended herbs for **{prakriti}** Prakriti:\n\n"
-            f"🌿 **{diet['herbs']}**\n\n"
-            f"These herbs help balance your dominant dosha. Always consult an Ayurvedic practitioner before starting any supplement."
-        )
-    elif any(w in q for w in ["vata", "pitta", "kapha", "dosha", "three"]):
-        return (
-            "The three Doshas in Ayurveda are:\n\n"
-            "🌬️ **Vata** — Air & Space — governs movement and communication\n"
-            "🔥 **Pitta** — Fire & Water — governs transformation and metabolism\n"
-            "🌊 **Kapha** — Earth & Water — governs structure and lubrication\n\n"
-            f"Your dominant dosha is **{prakriti}** {info['emoji']}"
-        )
-    elif any(w in q for w in ["balance", "imbalance", "fix", "heal", "help"]):
-        return (
-            f"To keep your **{prakriti}** dosha in balance:\n\n"
-            f"• Follow the diet recommendations above\n"
-            f"• Maintain regular daily routines (*Dinacharya*)\n"
-            f"• Get adequate sleep and avoid stress\n"
-            f"• Use the herbs: {diet['herbs']}\n"
-            f"• Consider consulting an Ayurvedic practitioner for a personalised plan 🙏"
-        )
-    elif any(w in q for w in ["exercise", "workout", "yoga", "activity"]):
-        ex = {
-            "Vata": "Gentle, grounding exercises — yoga, walking, tai chi, swimming. Avoid exhausting high-intensity workouts.",
-            "Pitta": "Moderate, cooling exercises — swimming, cycling, hiking in cool weather. Avoid overheating and excessive competition.",
-            "Kapha": "Vigorous, stimulating exercises — running, aerobics, weight training, HIIT. Kapha benefits most from intense activity!",
-        }
-        return f"**Exercise for {prakriti} Prakriti:**\n\n🏃 {ex[prakriti]}"
-    elif any(w in q for w in ["sleep", "rest", "bedtime", "wake"]):
-        sl = {
-            "Vata": "Aim for 7–8 hours. Go to bed by 10 PM. Create a calming bedtime routine — warm milk, light reading.",
-            "Pitta": "Aim for 7–8 hours. Avoid working late. Cool the bedroom and avoid stimulating content before bed.",
-            "Kapha": "Limit to 7–8 hours maximum. Avoid oversleeping — it increases Kapha. Wake up by 6 AM ideally.",
-        }
-        return f"**Sleep tips for {prakriti}:**\n\n😴 {sl[prakriti]}"
-    else:
-        return (
-            f"Great question! As a **{prakriti}** type, everything in Ayurveda is personalised to your constitution.\n\n"
-            f"You can ask me about:\n"
-            f"• 🥗 Diet and foods to eat or avoid\n"
-            f"• 🌿 Herbs and supplements\n"
-            f"• 🏃 Best exercises for your type\n"
-            f"• 😴 Sleep recommendations\n"
-            f"• ⚖️ Balancing your dosha\n\n"
-            f"What would you like to know? 🙏"
-        )

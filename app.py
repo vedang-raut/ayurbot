@@ -151,7 +151,7 @@ DIET_SUGGESTIONS = {
 QUESTIONS = [
     {
         "key": "body_frame",
-        "text": "🏃 How would you describe your **body frame**?",
+        "text": "🏃 How would you describe your body frame?",
         "options": [
             "Slim, light, hard to gain weight",
             "Medium, muscular, athletic build",
@@ -160,7 +160,7 @@ QUESTIONS = [
     },
     {
         "key": "skin_type",
-        "text": "✋ What is your **skin type** like?",
+        "text": "✋ What is your skin type like?",
         "options": [
             "Dry, rough, or flaky skin",
             "Oily, sensitive, prone to rashes or redness",
@@ -169,7 +169,7 @@ QUESTIONS = [
     },
     {
         "key": "hair_type",
-        "text": "💇 How would you describe your **hair**?",
+        "text": "💇 How would you describe your hair?",
         "options": [
             "Dry, frizzy, thin, or coarse",
             "Fine, straight, early greying or thinning",
@@ -178,7 +178,7 @@ QUESTIONS = [
     },
     {
         "key": "appetite",
-        "text": "🍽️ How is your **appetite**?",
+        "text": "🍽️ How is your appetite?",
         "options": [
             "Variable — sometimes hungry, sometimes not",
             "Strong and sharp — very irritable when hungry",
@@ -187,7 +187,7 @@ QUESTIONS = [
     },
     {
         "key": "digestion",
-        "text": "🫃 How is your **digestion** typically?",
+        "text": "🫃 How is your digestion typically?",
         "options": [
             "Irregular — prone to gas, bloating, constipation",
             "Quick and strong — prone to acidity or heartburn",
@@ -196,7 +196,7 @@ QUESTIONS = [
     },
     {
         "key": "sleep_pattern",
-        "text": "😴 Describe your typical **sleep**:",
+        "text": "😴 Describe your typical sleep:",
         "options": [
             "Light, interrupted, hard to fall asleep (6–7 hrs)",
             "Moderate and sound (7–8 hrs)",
@@ -205,7 +205,7 @@ QUESTIONS = [
     },
     {
         "key": "energy_level",
-        "text": "⚡ What is your **energy level** like?",
+        "text": "⚡ What is your energy level like?",
         "options": [
             "Comes in bursts — high then crashes",
             "Intense and focused but can burn out",
@@ -214,7 +214,7 @@ QUESTIONS = [
     },
     {
         "key": "temperament",
-        "text": "🧠 How would you describe your **temperament**?",
+        "text": "🧠 How would you describe your temperament?",
         "options": [
             "Creative, enthusiastic, but anxious or scattered",
             "Ambitious, decisive, but can get irritable or critical",
@@ -223,7 +223,7 @@ QUESTIONS = [
     },
     {
         "key": "memory",
-        "text": "🧩 How is your **memory**?",
+        "text": "🧩 How is your memory?",
         "options": [
             "Quick to grasp but quick to forget",
             "Sharp, clear, and precise",
@@ -232,7 +232,7 @@ QUESTIONS = [
     },
     {
         "key": "speech",
-        "text": "💬 How do you typically **speak**?",
+        "text": "💬 How do you typically speak?",
         "options": [
             "Fast, talkative, jump from topic to topic",
             "Precise, direct, sharp, and articulate",
@@ -241,7 +241,7 @@ QUESTIONS = [
     },
     {
         "key": "weather_preference",
-        "text": "🌤️ What **weather** do you prefer?",
+        "text": "🌤️ What weather do you prefer?",
         "options": [
             "Warm and humid — dislike cold and wind",
             "Cool — dislike heat, sun, and hot weather",
@@ -250,7 +250,7 @@ QUESTIONS = [
     },
     {
         "key": "thirst",
-        "text": "💧 How is your **thirst**?",
+        "text": "💧 How is your thirst?",
         "options": [
             "Variable — sometimes forget to drink water",
             "Excessive — always thirsty",
@@ -259,7 +259,7 @@ QUESTIONS = [
     },
     {
         "key": "sweat",
-        "text": "💦 How much do you **sweat**?",
+        "text": " How much do you sweat?",
         "options": [
             "Minimal sweating",
             "Profuse sweating, often with strong odour",
@@ -268,7 +268,7 @@ QUESTIONS = [
     },
     {
         "key": "joints",
-        "text": "🦴 How are your **joints**?",
+        "text": "🦴 How are your joints?",
         "options": [
             "Prominent, cracking, or popping joints",
             "Flexible and medium-sized",
@@ -277,7 +277,7 @@ QUESTIONS = [
     },
     {
         "key": "weight_tendency",
-        "text": "⚖️ What is your **weight tendency**?",
+        "text": "⚖️ What is your weight tendency ?",
         "options": [
             "Hard to gain weight, lose it quickly",
             "Moderate — gain and lose with relative ease",
